@@ -1,0 +1,181 @@
+install framer motin by:
+~ npm i framer-motion
+___________________________________________________
+import framer-motion by:
+import {motion} from "framer-motion";
+___________________________________________________
+add motion.tagName to apply animation to it
+<motion.div className="box"></motion.div>
+___________________________________________________
+to add animation:
+<motion.div
+    className="box"
+    animate={{ opacity: 0 , scale: 1.5}}
+></motion.div>
+___________________________________________________
+to add delay (add transition property):
+<motion.div
+    className="box"
+    animate={{ opacity: 0 , scale: 1.5}}
+    transition={{ duration: 2, delay: 2 }}
+></motion.div>
+___________________________________________________
+to add initial state (from-to) (add initial):
+<motion.div
+    className="box"
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: 1 , scale: 1}}
+    transition={{ duration: 2, delay: 2 }}
+></motion.div>
+___________________________________________________
+to trigger animation we have:
+whileDrag
+whileFocus
+whileHover
+whileInView
+whileTap
+
+<motion.div
+    className="box"
+    initial={{ opacity: 0.5, scale: 0.5 }}
+    transition={{ duration: 2}}
+    whileHover={{opacity:1, scale: 2}}      //starts when it is over
+    whileInView={{opacity:1, scale: 2}}     //starts when it is in view and goes to initail state when not in view
+    whileTap={{opacity:1, scale: 2}}        //starts when you click
+></motion.div>
+___________________________________________________
+to make it draggable(add drag):
+<motion.div
+    className="box"
+    initial={{ opacity: 0.5, scale: 0.5 }}
+    transition={{ duration: 2}}
+    drag
+></motion.div>
+___________________________________________________
+different properties:
+opacity
+scale
+x
+y
+___________________________________________________
+Outside the return we can create object where we can store animation properties like
+const variants = {
+    visible: {opacity:1},
+    hidden: {opacity:0},
+}
+
+we can use it by:
+<motion.div
+    className="box"
+    variants = {variants}
+    initial = "hidden"
+    animate = "visible"
+    transition={{duration:2}}
+></motion.div>
+___________________________________________________
+you can also use state to use animation
+const [open, setOpen] = useState(false);
+
+create object of animation
+const variants = {
+    visible: { opacity: 1, x: 500, transition:{duration: 2} },
+    hidden: { opacity: 0 },
+};
+
+<motion.div
+    className="box"
+    variants={variants}
+    animate = {open ? "visible" : "hidden"}         //ternary operation using state name
+></motion.div>
+
+event handler using button:
+<button onClick={() => setOpen(prev => !prev)}>Click</button>       //prev take the initail value and (prev => !prev) change via NOT gate
+___________________________________________________
+we can add different animation:
+transition:{ type: "spring", stiffness: 100, damping: 100 }         //spring animation
+<-------------------more on this in documentation------------------->
+___________________________________________________
+import { motion } from "framer-motion";
+
+function Test() {
+  const [open, setOpen] = useState(false);
+
+  const variants = {
+    visible: { opacity: 1, x: 500, transition:{ type: "spring", stiffness: 100, damping: 100 } },
+    hidden: { opacity: 0 },
+  };
+  return (
+    <div className="course">
+      <motion.div
+        className="box"
+        variants={variants}
+        // initial = "hidden"
+        // animate = "visible"
+        animate = {open ? "visible" : "hidden"}
+      ></motion.div>
+
+      <button onClick={() => setOpen(prev =>!prev)}>Click</button>
+    </div>
+  );
+}
+___________________________________________________
+___________________________________________________
+___________________________________________________
+stagerring effect on element of array:
+
+object of animation types:
+const variants = {
+    visible: (i) => ({
+      opacity: 1,
+      x: 100,
+      transition: { delay: i*0.3 },
+    }),
+
+    hidden: { opacity: 0 },
+};
+
+array of items:
+const items = ["item1", "item2", "item3", "item4"];
+
+<motion.ul initial="hidden" animate="visible" variants={variants}>          // create ul list
+    {items.map((item, i) => (                                               // mapping or taking each value of array
+        <motion.li variants={variants} key={item} custom={i}>               
+                                                                            // “key” is a special string attribute you need to include when creating lists of elements
+                                                                            // “custom” is used to pass custom data to the animation.
+        {item}                                                              // create list using array elements
+        </motion.li>
+    ))}
+</motion.ul>
+___________________________________________________
+
+##project 2
+
+import React from "react";
+import { motion } from "framer-motion";
+
+function Test() {
+  const variants = {
+    visible: (i) => ({
+      opacity: 1,
+      x: 100,
+      transition: { delay: i*0.3 },
+    }),
+    hidden: { opacity: 0 },
+  };
+
+  const items = ["item1", "item2", "item3", "item4"];
+
+  return (
+    <div className="course">
+      <motion.ul initial="hidden" animate="visible" variants={variants}>
+        {items.map((item, i) => (
+          <motion.li variants={variants} key={item} custom={i}>
+            {item}
+          </motion.li>
+        ))}
+      </motion.ul>
+    </div>
+  );
+}
+
+export default Test;
