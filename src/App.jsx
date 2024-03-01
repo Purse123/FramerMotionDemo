@@ -6,6 +6,7 @@ import Navbar from "./components/navbar/Navbar";
 import Parallax from "./components/parallax/Parallax";
 import Services from "./components/services/Services";
 import Portfolio from "./components/portfolio/Portfolio";
+import Contact from "./components/contact/Contact";
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
         <Parallax type="portfolio" />
       </section>
       <Portfolio />
-      <section id="Contact">Contact</section>
+      <section id="Contact">
+        <Contact />
+      </section>
     </>
   );
 }
