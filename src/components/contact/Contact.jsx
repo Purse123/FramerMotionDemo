@@ -18,14 +18,13 @@ const variants = {
 };
 
 function Contact() {
-
   const ref = useRef();
 
   const isInView = useInView(ref, { margin: "-100px" });
 
   return (
     <motion.div
-    ref={ref}
+      ref={ref}
       className="contact"
       variants={variants}
       initial="initial"
@@ -84,9 +83,9 @@ function Contact() {
           animate={{ opacity: 1 }}
           transition={{ delay: 4, duration: 1 }}
         >
-          <input type="text" required placeholder="Full Name" />
-          <input type="email" required placeholder="Email" />
-          <textarea rows={8} placeholder="Message"></textarea>
+          <input type="text" required placeholder="Full Name" name="user_name" />
+          <input type="email" required placeholder="Email" name="user_email" />
+          <textarea rows={8} placeholder="Message" name="message"></textarea>
           <button>Submit</button>
         </motion.form>
       </div>
